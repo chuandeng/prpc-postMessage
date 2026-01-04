@@ -1,13 +1,32 @@
 {
   "name": "prpc-postMessage",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "A Promise-based RPC layer built on postMessage for Web, Service Workers, and Figma plugins.",
+  "keywords": [
+    "postMessage",
+    "rpc",
+    "promise",
+    "service-worker",
+    "figma-plugin",
+    "cross-window",
+    "web"
+  ],
+   "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chuandeng/prpc-postMessage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chuandeng/prpc-postMessage/issues"
+  },
+  "homepage": "https://github.com/chuandeng/prpc-postMessage#readme",
+
   "main": "dist/prpc-postmessage.umd.js",
   "module": "dist/prpc-postmessage.mjs",
   "types": "dist/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/prpc-postmessage.mjs",
       "require": "./dist/prpc-postmessage.js"
     }
@@ -20,16 +39,23 @@
     "demo-worker": "vite --open /examples/service-worker/index.html",
     "demo-iframe": "vite --open /examples/iframe/index.html",
     "build": "tsc && vite build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf dist",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.14.0",
+  "author": "chuandeng<chuandeng99@sohu.com>",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^25.0.3",
     "typescript": "^5.9.3",
     "vite": "^5.4.21",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+     "rimraf": "^5.0.0",
+    "eslint": "^8.56.0"
+  },
+   "publishConfig": {
+    "access": "public"
   }
 }
