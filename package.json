@@ -1,0 +1,35 @@
+{
+  "name": "prpc-postMessage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/prpc-postmessage.umd.js",
+  "module": "dist/prpc-postmessage.mjs",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/prpc-postmessage.mjs",
+      "require": "./dist/prpc-postmessage.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "demo-worker": "vite --open /examples/service-worker/index.html",
+    "demo-iframe": "vite --open /examples/iframe/index.html",
+    "build": "tsc && vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.21",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}
