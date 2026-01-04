@@ -1,32 +1,51 @@
 name: Release
 
+# Trigger the workflow only on tag push
 on:
   push:
     tags:
-      - 'v*'   # 只有 v1.0.0 这种 tag 才会触发
-      - 'beta*'
+      - 'v*'         # Stable version, e.g., v1.0.0
+      - 'beta*'      # Beta version, e.g., beta-0.2.0
+      - 'next*'      # Next / RC version, e.g., next-0.3.0
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      # 1️⃣ Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      # 2️⃣ Setup Node.js and pnpm
+      - name: Setup Node.js and pnpm
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           registry-url: https://registry.npmjs.org/
+          cache: 'pnpm'
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
 
+      # 4️⃣ Build the project
       - name: Build
-        run: npm run build
+        run: pnpm run build
 
+      # 5️⃣ Publish to npm according to tag
       - name: Publish to npm
-        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "GITHUB_REF=$GITHUB_REF"
+          if [[ $GITHUB_REF == refs/tags/beta* ]]; then
+            echo "Publishing Beta version..."
+            pnpm publish --tag beta --access public
+          elif [[ $GITHUB_REF == refs/tags/next* ]]; then
+            echo "Publishing Next version..."
+            pnpm publish --tag next --access public
+          else
+            echo "Publishing Stable version..."
+            pnpm publish --tag latest --access public
+          fi
