@@ -1,5 +1,5 @@
 {
-  "name": "prpc-postMessage",
+  "name": "prpc-postmessage",
   "version": "0.1.0",
   "description": "A Promise-based RPC layer built on postMessage for Web, Service Workers, and Figma plugins.",
   "keywords": [
